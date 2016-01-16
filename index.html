@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"></meta>
+<link rel="stylesheet" href="css/style.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Optional Bootstrap theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+</head>
+<body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1476157992692733',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+  FB.Event.subscribe('auth.authResponseChange', function(response) 
+	{
+ 	 if (response.status === 'connected') 
+  	{
+  		document.getElementById("footer").innerHTML +=  "<br>Connected to Facebook";
+  		//SUCCESS
+  		
+  	}	 
+	else if (response.status === 'not_authorized') 
+    {
+    	document.getElementById("footer").innerHTML +=  "<br>Failed to Connect";
+
+		//FAILED
+    } else 
+    {
+    	document.getElementById("footer").innerHTML +=  "<br>Logged Out";
+
+    	//UNKNOWN ERROR
+    }
+	});	
+	
+		function Login()
+	    { 
+	
+		FB.login(function(response) {
+		   if (response.authResponse) 
+		    {
+		    	getUserInfo();
+				
+				
+  			} 
+			else 
+  			{
+  	    	 alert('User cancelled login or did not fully authorize.');
+   			}
+		 },{scope: 'email'});
+	 }
+
+  function getUserInfo() {
+
+	    FB.api('/me?fields=email', function(response) {
+
+	  var str= response.email ;
+	  
+       window.location.href ="index.php?email=" + str ;		
+        
+	  });
+	 
+	 }
+	 
+	/*
+	function getemail() {
+	 FB.api('/me', function(response) {
+	 
+	 var user = "<b>Name</b>:"+response.name+"<br>";
+	 
+	     user + = "<b>ID</b>:"+response.id+"<br>";
+		 
+		 document.getElementById("footer").innerHTML = user;
+	 
+	 });
+	
+	}
+*/
+    
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+ 
+
+
+<div id="fb-root"></div>
+<script>
+
+   
+	
+	
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=1476157992692733";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+   <script src="//connect.facebook.net/en_US/all.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<div class="main">
+	<!logo box>
+	<div class="col-md-12" id="logo">
+	<div class="col-md-5">
+	<img id="one" src="#" alt="logo" ></img>
+	</div>
+	<div class="col-md-7" id="login-form">
+	<form class="form-inline" role="form" method="post" action="login.php" >
+  <div class="form-group" id="login-form-box-1">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" name="email" id="email">
+    </div>
+  
+  <div class="form-group" id="login-form-box-2">
+    <label for="pwd">Password:</label>
+    <input type="password" name="password" 	class="form-control" id="pwd">
+	<span class="msg"><?php echo $message; ?></span>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+	</div>
+	</div>
+	<!menu button>
+	<div class="col-md-12" id ="menu-button">
+  <div class="col-md-3">
+    <button type="button" class="buttons" id="button-1">HOME&nbsp;<span class="glyphicon glyphicon-home"></span></button>
+  </div>
+  
+  
+  <div class="col-md-3">
+    <button type="button" class="buttons" id="button-2">POST JOB&nbsp;<span class="glyphicon glyphicon-briefcase"></span></button>
+  </div>
+  
+  
+ 
+  <div class="col-md-3">
+    <button type="button" class="buttons" id="button-3">SEARCH&nbsp;<span class="glyphicon glyphicon-search"></span></button>
+  </div>
+  <div class="col-md-3">
+    <button type="button" class="buttons" id="button-4">MESSAGE&nbsp;<span class="glyphicon glyphicon-envelope"></span></button>
+  </div>
+  
+  </div>
+
+	<!sign up form> 
+	<div class="col-md-12" id="register">
+	<div class="col-md-6" id="sign-up-1">
+	<div class="panel panel-primary">
+	<div class="panel panel-heading" id="box-1">Are you looking for babbysitter/cleaning job?</div>
+	<div class="panel-body">
+		<form role="form" method="post" action="member.php" >
+	<div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text"  name="name" class="form-control" >
+  </div>
+    <div class="form-group">
+    <label for="address">Address:</label>
+    <input type="text" name="address" class="form-control">
+  </div>
+    <div class="form-group">
+    <label for="number">Contact No.:</label>
+    <input type="number"  name="contact" class="form-control"  min="10" >
+  </div>
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email"  name="email" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" name="password" class="form-control" id="pwd">
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox"> Remember me</label>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  
+  <div class="fb-login-button" data-max-rows="1" data-scope="email" data-size="large" onlogin="Login();" data-show-faces="true" data-auto-logout-link="true"></div>
+  <span class="msg"><?php echo $msg; ?></span>
+</form>
+	</div>
+	</div>
+	</div>
+	<div class="col-md-6" id="sign-up-2">
+	<div class="panel panel-primary">
+	<div class="panel panel-heading"  id="box-2">User or Customers</div>
+	<div class="panel-body">
+	<form role="form" method="post" action="index.php" >
+	<div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" name="name" class="form-control" >
+  </div>
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" name="email" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" name="password" class="form-control" id="pwd">
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox"> Remember me</label>
+   <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  
+  <div class="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" onlogin="Login();" data-show-faces="true" data-auto-logout-link="true"></div>
+  <span class="msg" ><?php  echo $msg; ?> </span>
+</form>
+	</div>
+	</div>
+	</div>
+	</div>
+	<!footer>
+	<div class="col-md-12" id="footer">
+	
+	</div>
+	</div>
+	
+</body>
+</html>
